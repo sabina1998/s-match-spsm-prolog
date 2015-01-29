@@ -5,7 +5,7 @@
 
     <import resource="s-match.xml"/>
 
-    <bean id="mappingRenderer" class="it.unitn.disi.smatch.renderers.mapping.PrologMappingRenderer"/>
+    <bean id="mappingRenderer" class="uk.ac.hw.smatch.renderers.mapping.PrologMappingRenderer"/>
  
     <bean id="treeMatcher" class="it.unitn.disi.smatch.matchers.structure.tree.spsm.SPSMTreeMatcher">
         <constructor-arg name="nodeMatcher" ref="nodeMatcher"/>
