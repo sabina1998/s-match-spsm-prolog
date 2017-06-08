@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# June 2017
+# This file included here for completeness.
+# This file has been copied to s-match-utils
+# for use in the build.
+
 ./match-manager convert $1 $1.xml -config=../conf/s-match-Function2XML.xml
 ./match-manager convert $2 $2.xml -config=../conf/s-match-Function2XML.xml
 
