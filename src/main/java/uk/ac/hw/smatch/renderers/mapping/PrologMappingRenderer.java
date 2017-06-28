@@ -1,4 +1,5 @@
 package uk.ac.hw.smatch.renderers.mapping;
+import java.io.*;
 
 import it.unitn.disi.smatch.data.mappings.IContextMapping;
 import it.unitn.disi.smatch.data.mappings.IMappingElement;
@@ -8,6 +9,7 @@ import it.unitn.disi.smatch.renderers.mapping.IMappingRenderer;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Renders the mapping in Prolog-compatible format.
@@ -20,16 +22,19 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
     public final static String PROLOG_FILES = "Prolog Files (*.pl)";
 
     protected void process(IContextMapping<INode> mapping, BufferedWriter out) throws IOException {
-        out.write("similarity(" + Double.toString(mapping.getSimilarity()) + ").\n");
-        out.write("match(none).\n");
-
-        for (IMappingElement<INode> mappingElement : mapping) {
-            String sourceConceptName = getNodePathString(mappingElement.getSource());
-            String targetConceptName = getNodePathString(mappingElement.getTarget());
-            char relation = mappingElement.getRelation();
-
-            out.write("match([[" + sourceConceptName + "]," + relation + ",[" + targetConceptName + "]]).\n");
-        }
+    	try{		
+    		FileOutputStream fOut = new FileOutputStream("../../../outputs/serialised-results.ser");
+    		ObjectOutputStream outStream = new ObjectOutputStream(fOut);
+    		
+    		outStream.writeObject(mapping);
+        	out.write("" + mapping.getSimilarity());
+        	
+    		outStream.close();
+    		fOut.close();
+    		
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
 
     protected String getNodePathString(INode node) {
@@ -50,3 +55,14 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
         return PROLOG_FILES;
     }
 }
+
+//out.write("similarity(" + Double.toString(mapping.getSimilarity()) + ").\n");
+//out.write("match(none).\n");
+//
+//for (IMappingElement<INode> mappingElement : mapping) {
+//  String sourceConceptName = getNodePathString(mappingElement.getSource());
+//  String targetConceptName = getNodePathString(mappingElement.getTarget());
+//  char relation = mappingElement.getRelation();
+//
+//  out.write("match([[" + sourceConceptName + "]," + relation + ",[" + targetConceptName + "]]).\n");
+//}
