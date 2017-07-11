@@ -1,4 +1,4 @@
-package uk.ac.hw.smatch.renderers.mapping;
+spackage uk.ac.hw.smatch.renderers.mapping;
 import java.io.*;
 
 import it.unitn.disi.smatch.data.mappings.IContextMapping;
@@ -22,7 +22,20 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
     public final static String PROLOG_FILES = "Prolog Files (*.pl)";
 
     protected void process(IContextMapping<INode> mapping, BufferedWriter out) throws IOException {
-    	try{		
+    	try{	
+    		//write the results to file	
+			out.write("similarity(" + Double.toString(mapping.getSimilarity()) + ").\n");
+			out.write("match(none).\n");
+
+			for (IMappingElement<INode> mappingElement : mapping) {
+				String sourceConceptName = getNodePathString(mappingElement.getSource());
+				String targetConceptName = getNodePathString(mappingElement.getTarget());
+				char relation = mappingElement.getRelation();
+
+				out.write("match([[" + sourceConceptName + "]," + relation + ",[" + targetConceptName + "]]).\n");
+			}
+    	
+    		//and also write it to file serialised as object
     		FileOutputStream fOut = new FileOutputStream("../../../outputs/serialised-results.ser");
     		ObjectOutputStream outStream = new ObjectOutputStream(fOut);
     		
@@ -55,14 +68,3 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
         return PROLOG_FILES;
     }
 }
-
-//out.write("similarity(" + Double.toString(mapping.getSimilarity()) + ").\n");
-//out.write("match(none).\n");
-//
-//for (IMappingElement<INode> mappingElement : mapping) {
-//  String sourceConceptName = getNodePathString(mappingElement.getSource());
-//  String targetConceptName = getNodePathString(mappingElement.getTarget());
-//  char relation = mappingElement.getRelation();
-//
-//  out.write("match([[" + sourceConceptName + "]," + relation + ",[" + targetConceptName + "]]).\n");
-//}
