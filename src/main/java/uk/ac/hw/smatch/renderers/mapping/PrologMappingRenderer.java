@@ -25,7 +25,6 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
     	try{	
     		//write the results to file	
 			out.write("similarity(" + Double.toString(mapping.getSimilarity()) + ").\n");
-			out.write("match(none).\n");
 
 			for (IMappingElement<INode> mappingElement : mapping) {
 				String sourceConceptName = getNodePathString(mappingElement.getSource());
@@ -40,7 +39,6 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
     		ObjectOutputStream outStream = new ObjectOutputStream(fOut);
     		
     		outStream.writeObject(mapping);
-        	out.write("" + mapping.getSimilarity());
         	
     		outStream.close();
     		fOut.close();
