@@ -1,4 +1,4 @@
-spackage uk.ac.hw.smatch.renderers.mapping;
+package uk.ac.hw.smatch.renderers.mapping;
 import java.io.*;
 
 import it.unitn.disi.smatch.data.mappings.IContextMapping;
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 
 /**
  * Renders the mapping in Prolog-compatible format.
- *
+ * @author Tanya Howden
  * @author Kristof Kessler <kkessler@staffmail.ed.ac.uk>
  * @author unknown original author
  */
