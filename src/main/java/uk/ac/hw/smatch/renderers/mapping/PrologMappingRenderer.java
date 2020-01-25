@@ -35,7 +35,7 @@ public class PrologMappingRenderer extends BaseFileMappingRenderer implements IM
 			}
     	
     		//and also write it to file serialised as object
-    		FileOutputStream fOut = new FileOutputStream("outputs/serialised-results.ser");
+    		FileOutputStream fOut = new FileOutputStream("../../../outputs/serialised-results.ser");
     		ObjectOutputStream outStream = new ObjectOutputStream(fOut);
     		
     		outStream.writeObject(mapping);
